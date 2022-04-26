@@ -14,7 +14,8 @@
 	"compatibleCoreVersion": "9",
 	"dependencies": [
 		{
-			"name": "playerListStatus"
+			"name": "playerListStatus",
+			"manifest": "https://github.com/Talaren/FoundryVTT-PlayerStatus/releases/latest/download/module.json"
 		}
 	],
 	"languages": [
