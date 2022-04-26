@@ -15,7 +15,7 @@
 	"dependencies": [
 		{
 			"name": "playerListStatus",
-			"manifest": "https://github.com/Talaren/FoundryVTT-PlayerListStatus/releases/download/1.0.1/module.json"
+			"manifest": "https://github.com/Talaren/FoundryVTT-PlayerListStatus/releases/latest/download/module.json"
 		}
 	],
 	"languages": [
