@@ -1,0 +1,36 @@
+{
+	"PLAYER-STATUS": {
+		"afk": {
+			"showEmojiIndicator": {
+				"name": "Soll ein AFK-Emoji-Indikator in der Spielerliste angezeigt werden?"
+			},
+			"showChatNotification": {
+				"name": "Soll eine Nachricht in den Chat gestellt werden, wenn ein Spieler AFK ist?"
+			},
+			"showChatActivityRemoveAFK": {
+				"name": "Soll der AFK-Indikator verschwinden, wenn man AFK ist und eine Chat-Nachricht postet?"
+			},
+			"back": "{Name} ist zurück",
+			"afk": "{Name} ist afk",
+			"iconPosition": {
+				"name": "Wo soll das AFK-Symbol angezeigt werden?"
+			}
+		},
+		"typing": {
+			"timeOutSec": {
+				"name": "Tippen zurücksetzen nach x Sekunden nach dem letzten Zeichen"
+			},
+			"icon": {
+				"name": "Tippen-Symbol auswählen"
+			},
+			"iconPosition": {
+				"name": "Wo soll das Tippsymbol angezeigt werden?"
+			}
+		},
+		"iconPosition": {
+			"beforeOnline": "Vor dem Online-Status",
+			"afterOnline": "Nach dem Online-Status",
+			"afterName": "Nach dem Benutzernamen"
+		}
+	}
+}

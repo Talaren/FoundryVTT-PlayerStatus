@@ -1,0 +1,37 @@
+{
+	"name": "playerStatus",
+	"title": "Player Status",
+	"description": "Track if user write something or are afk",
+	"authors": [
+		{
+			"name": "Talaren",
+			"url": "https://github.com/Talaren"
+		}
+	],
+	"version": "1.0.0",
+	"minimumCoreVersion": "9",
+	"compatibleCoreVersion": "9",
+	"dependencies": [
+		{
+			"name": "playerListStatus"
+		}
+	],
+	"languages": [
+		{
+			"lang": "en",
+			"name": "English",
+			"path": "languages/en.json"
+		},
+		{
+			"lang": "de",
+			"name": "Deutsch",
+			"path": "languages/de.json"
+		}
+	],
+	"scripts": [
+		"scripts/playerstatus.js"
+	],
+	"esmodules": [
+		"scripts/playerstatus.js"
+	]
+}
