@@ -2,6 +2,7 @@
 	"name": "playerStatus",
 	"title": "Player Status",
 	"description": "Track if user write something or are afk",
+	"url": "https://github.com/Talaren/FoundryVTT-PlayerStatus",
 	"authors": [
 		{
 			"name": "Talaren",
@@ -33,5 +34,7 @@
 	],
 	"esmodules": [
 		"scripts/playerstatus.js"
-	]
+	],
+	"manifest": "https://github.com/Talaren/FoundryVTT-PlayerStatus/releases/download/1.0.0/module.json",
+	"download": "https://github.com/Talaren/FoundryVTT-PlayerStatus/releases/download/1.0.0/module.zip"
 }
