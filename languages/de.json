@@ -10,8 +10,8 @@
 			"showChatActivityRemoveAFK": {
 				"name": "Soll der AFK-Indikator verschwinden, wenn man AFK ist und eine Chat-Nachricht postet?"
 			},
-			"back": "{Name} ist zurück",
-			"afk": "{Name} ist afk",
+			"back": "{name} ist zurück",
+			"afk": "{name} ist afk",
 			"iconPosition": {
 				"name": "Wo soll das AFK-Symbol angezeigt werden?"
 			}

@@ -1,4 +1,5 @@
 import AfkStatus from "./afkStatus.mjs";
+import WrittingStatus from "./writtingStatus.mjs";
 
 Hooks.on("chatMessage", (chatlog, messageText, chatData) => {
     if (messageText.startsWith("/afk") || messageText.startsWith("brb")) {
@@ -13,15 +14,11 @@ Hooks.on("chatMessage", (chatlog, messageText, chatData) => {
     if (game.settings.get("playerStatus", "showChatActivityRemoveAFK")) {
         window.game.afkStatus.back();
     }
-    WrittingStatus.stop(game.user.name);
+    window.game.writtingStatus.stop();
 });
 
 Hooks.once('ready', function () {
     let moduleName = 'playerStatus';
-    let chat = document.getElementById('chat-message');
-
-    let afkStatus = new AfkStatus();
-    window.game.afkStatus = afkStatus;
 
     game.settings.register(moduleName, "showEmojiIndicator", {
         name: game.i18n.localize("PLAYER-STATUS.afk.showEmojiIndicator.name"),
@@ -100,8 +97,14 @@ Hooks.once('ready', function () {
         "3"
     });
 
+    let afkStatus = new AfkStatus();
+    window.game.afkStatus = afkStatus;
+    let writtingStatus = new WrittingStatus();
+    window.game.writtingStatus = writtingStatus;
+
+    let chat = document.getElementById('chat-message');
     chat.addEventListener("keydown", function (event) {
-        WrittingStatus.typing(game.user.name);
+        window.game.writtingStatus.typing();
     });
 });
 
@@ -115,54 +118,3 @@ Hooks.on("getSceneControlButtons", function (controls) {
         onClick: () => window.game.afkStatus.afk()
     });
 });
-
-class WrittingStatus {
-
-    static typing(name) {
-        if (typeof WrittingStatus.keytimer !== 'undefined') {
-            clearTimeout(WrittingStatus.keytimer);
-        } else {
-            switch (game.settings.get("playerStatus", "typingIconPosition")) {
-            case "1":
-                PlayerListStatus.addStatusBeforeOnlineStatus(name, "typping", game.settings.get("playerStatus", "typingIcon"));
-                break;
-            case "2":
-                PlayerListStatus.addStatusBeforePlayername(name, "typping", game.settings.get("playerStatus", "typingIcon"));
-                break;
-            case "3":
-                PlayerListStatus.addStatusAfterPlayername(name, "typping", game.settings.get("playerStatus", "typingIcon"));
-                break;
-            }
-        }
-        WrittingStatus.keytimer = setTimeout(function () {
-            switch (game.settings.get("playerStatus", "typingIconPosition")) {
-            case "1":
-                PlayerListStatus.removeStatusBeforeOnlineStatus(name, "typping");
-                break;
-            case "2":
-                PlayerListStatus.removeStatusBeforePlayername(name, "typping");
-                break;
-            case "3":
-                PlayerListStatus.removeStatusAfterPlayername(name, "typping");
-                break;
-            }
-            WrittingStatus.keytimer = undefined;
-        }, (game.settings.get("playerStatus", "timeOutSec") * 1000));
-    }
-
-    static stop(name) {
-        clearTimeout(WrittingStatus.keytimer);
-        switch (game.settings.get("playerStatus", "typingIconPosition")) {
-        case "1":
-            PlayerListStatus.removeStatusBeforeOnlineStatus(name, "typping");
-            break;
-        case "2":
-            PlayerListStatus.removeStatusBeforePlayername(name, "typping");
-            break;
-        case "3":
-            PlayerListStatus.removeStatusAfterPlayername(name, "typping");
-            break;
-        }
-        WrittingStatus.keytimer = undefined;
-    }
-}

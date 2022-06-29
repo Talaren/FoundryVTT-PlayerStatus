@@ -31,9 +31,6 @@
 			"path": "languages/de.json"
 		}
 	],
-	"scripts": [
-		"scripts/playerstatus.js"
-	],
 	"esmodules": [
 		"scripts/playerstatus.js"
 	],
