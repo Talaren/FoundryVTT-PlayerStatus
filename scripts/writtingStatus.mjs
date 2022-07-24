@@ -1,48 +1,71 @@
 export default class WrittingStatus {
 
-    constructor(playerName) {
-        this.moduleName = "playerStatus";
-        this.keytimer = undefined;
-        this.stop();
-    }
+	constructor() {
+		this.moduleName = "playerStatus";
+		this.keyName = "typping";
+		this.keytimer = undefined;
+		let position = this.parsePositionConfig(game.settings.get(this.moduleName, "typingIconPosition"));
+		let options = {
+			resetFlags: true,
+			override: false,
+			position: position
+		}
+		let typingIcon = game.settings.get(this.moduleName, "typingIcon");
+		let success = game.playerListStatus.registerKey(this.keyName, typingIcon, options);
+		if (success) {
+			Hooks.on("chatMessage", (_chatlog, _messageText, _chatData) => {
+				this.stop();
+			});
+			let chat = document.getElementById('chat-message');
+			chat.addEventListener("keydown", function() {
+				game.writtingStatus.typing();
+			});
+		}
+	}
 
-    typing() {
-        if (typeof this.keytimer !== 'undefined') {
-            clearTimeout(this.keytimer);
-        } else {
-            let typingIcon = game.settings.get(this.moduleName, "typingIcon");
-            switch (game.settings.get("playerStatus", "typingIconPosition")) {
-            case "1":
-                game.playerListStatus.addStatusBeforeOnlineStatus(game.user.id, "typping", typingIcon);
-                break;
-            case "2":
-                game.playerListStatus.addStatusBeforePlayername(game.user.id, "typping", typingIcon);
-                break;
-            case "3":
-                game.playerListStatus.addStatusAfterPlayername(game.user.id, "typping", typingIcon);
-                break;
-            }
-        }
-        this.keytimer = setTimeout(() => {
-            this.stop();
-        }, (game.settings.get("playerStatus", "timeOutSec") * 1000));
-    }
+	typing() {
+		if (typeof this.keytimer !== 'undefined') {
+			clearTimeout(this.keytimer);
+		} else {
+			game.playerListStatus.on(this.keyName);
+		}
+		this.keytimer = setTimeout(() => {
+			game.writtingStatus.stop();
+		}, (game.settings.get("playerStatus", "timeOutSec") * 1000));
+	}
 
-    stop() {
-        if (typeof this.keytimer !== "undefined") {
-            clearTimeout(this.keytimer);
-        }
-        switch (game.settings.get(this.moduleName, "typingIconPosition")) {
-        case "1":
-            game.playerListStatus.removeStatusBeforeOnlineStatus(game.user.id, "typping");
-            break;
-        case "2":
-            game.playerListStatus.removeStatusBeforePlayername(game.user.id, "typping");
-            break;
-        case "3":
-            game.playerListStatus.removeStatusAfterPlayername(game.user.id, "typping");
-            break;
-        }
-        this.keytimer = undefined;
-    }
+	stop() {
+		if (typeof this.keytimer !== "undefined") {
+			clearTimeout(this.keytimer);
+		}
+		game.playerListStatus.off(this.keyName);
+		this.keytimer = undefined;
+	}
+
+	changePosition(setting) {
+		game.playerListStatus.changePosition(this.keyName, this.parsePositionConfig(setting))
+	}
+
+	changeShowIndicator(enabled) {
+		if (enabled) {
+			this.registerKey();
+		} else {
+			game.playerListStatus.removeKey(this.keyName)
+		}
+	}
+
+	changeIndicator(setting) {
+		game.playerListStatus.changeValue(this.keyName, setting)
+	}
+
+	parsePositionConfig(setting) {
+		switch (setting) {
+			case "1":
+				return game.playerListStatus.positions.beforeOnlineStatus;
+			case "2":
+				return game.playerListStatus.positions.beforePlayername;
+			case "3":
+				return game.playerListStatus.positions.afterPlayername;
+		}
+	}
 }
