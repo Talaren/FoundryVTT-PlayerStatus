@@ -44,7 +44,7 @@
 		"scripts/playerstatus.js"
 	],
 	"manifest": "https://github.com/Talaren/FoundryVTT-PlayerStatus/releases/latest/download/module.json",
-	"download": "https://github.com/Talaren/FoundryVTT-PlayerStatus/releases/download/2.0.4/module.zip",
+	"download": "https://github.com/Talaren/FoundryVTT-PlayerStatus/releases/download/2.0.5/module.zip",
 	"name": "playerStatus",
 	"minimumCoreVersion": "9",
 	"compatibleCoreVersion": "9.269",
