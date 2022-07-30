@@ -17,7 +17,7 @@
 				"type": "module",
 				"manifest": "https://github.com/Talaren/FoundryVTT-PlayerListStatus/releases/latest/download/module.json",
 				"compatibility": {
-					"verified": "2.0.2"
+					"verified": "2.0.3"
 				}
 			}
 		]
@@ -46,11 +46,13 @@
 	"download": "https://github.com/Talaren/FoundryVTT-PlayerStatus/releases/download/2.0.2/module.zip",
 	"name": "playerStatus",
 	"minimumCoreVersion": "9",
+	"compatibleCoreVersion": "9.269",
 	"dependencies": [
 		{
 			"name": "playerListStatus",
 			"type": "module",
-			"manifest": "https://github.com/Talaren/FoundryVTT-PlayerListStatus/releases/latest/download/module.json"
+			"manifest": "https://github.com/Talaren/FoundryVTT-PlayerListStatus/releases/latest/download/module.json",
+			"version": "2.0.3"
 		}
 	]
 }
