@@ -1,99 +1,88 @@
 export default class AfkStatus {
 
-	constructor() {
-		this.moduleName = "playerStatus";
-		this.keyName = "afk";
-		let success = this.registerKey();
-		if (success) {
-			this.isAfk = game.playerListStatus.status(this.keyName);
-			Hooks.on("chatMessage", (_chatlog, messageText, _chatData) => {
-				if (messageText.startsWith("/afk") || messageText.startsWith("brb")) {
-					let reason = messageText.indexOf(" ") > 0 ? messageText.substr(messageText.indexOf(" ")) : undefined;
-					window.game.afkStatus.afk(reason);
-					return false;
-				}
-				if (messageText.startsWith("/back")) {
-					window.game.afkStatus.back();
-					return false;
-				}
-				if (game.settings.get("playerStatus", "showChatActivityRemoveAFK")) {
-					window.game.afkStatus.back();
-				}
-			});
-		}
-	}
+    static moduleName = "playerStatus";
+    static keyName = "afk";
 
-	afk(reason) {
-		if (this.isAfk) {
-			if (game.settings.get(this.moduleName, "showChatNotification")) {
-				let chatData = {
-					content: game.i18n.format("PLAYER-STATUS.afk.back", {
-						name: game.user.name
-					}),
-					type: CONST.CHAT_MESSAGE_TYPES.OOC
-				};
-				ChatMessage.create(chatData);
-			}
-			if (game.settings.get(this.moduleName, "showAfkIndicator")) {
-				game.playerListStatus.off(this.keyName);
-			}
-		} else {
-			if (game.settings.get(this.moduleName, "showChatNotification")) {
-				let chatData = {
-					content: game.i18n.format("PLAYER-STATUS.afk.afk", {
-						name: game.user.name
-					}) + (typeof reason !== 'undefined' ? "<br/>" + reason : ""),
-					type: CONST.CHAT_MESSAGE_TYPES.OOC
-				};
-				ChatMessage.create(chatData);
-			}
-			if (game.settings.get(this.moduleName, "showAfkIndicator")) {
-				game.playerListStatus.on(this.keyName);
-			}
-		}
-		this.isAfk = !this.isAfk;
-	}
+    constructor() {
+        this.isAfk = game.playerListStatus.status(AfkStatus.keyName);
+        Hooks.on("chatMessage", (_chatlog, messageText, _chatData) => {
+            if (messageText.startsWith("/afk") || messageText.startsWith("brb")) {
+                let reason = messageText.indexOf(" ") > 0 ? messageText.substring(messageText.indexOf(" ")) : undefined;
+                window.game.afkStatus.afk(reason);
+                return false;
+            }
+            if (messageText.startsWith("/back")) {
+                window.game.afkStatus.back();
+                return false;
+            }
+            if (game.settings.get("playerStatus", "showChatActivityRemoveAFK")) {
+                window.game.afkStatus.back();
+            }
+        });
+    }
 
-	back() {
-		if (this.isAfk) {
-			this.afk();
-		}
-	}
+    afk(reason) {
+        if (this.isAfk) {
+            if (game.settings.get(AfkStatus.moduleName, "showChatNotification")) {
+                // noinspection JSUnresolvedVariable
+                let chatData = {
+                    content: game.i18n.format("PLAYER-STATUS.afk.back", {
+                        name: game.user.name
+                    }), type: CONST.CHAT_MESSAGE_TYPES.OOC
+                };
+                ChatMessage.create(chatData);
+            }
+            if (game.settings.get(AfkStatus.moduleName, "showAfkIndicator")) {
+                game.playerListStatus.off(AfkStatus.keyName);
+            }
+        } else {
+            if (game.settings.get(AfkStatus.moduleName, "showChatNotification")) {
+                // noinspection JSUnresolvedVariable
+                let chatData = {
+                    content: game.i18n.format("PLAYER-STATUS.afk.afk", {
+                        name: game.user.name
+                    }) + (typeof reason !== 'undefined' ? "<br/>" + reason : ""), type: CONST.CHAT_MESSAGE_TYPES.OOC
+                };
+                ChatMessage.create(chatData);
+            }
+            if (game.settings.get(AfkStatus.moduleName, "showAfkIndicator")) {
+                game.playerListStatus.on(AfkStatus.keyName);
+            }
+        }
+        this.isAfk = !this.isAfk;
+    }
 
-	changeShowIndicator(enabled) {
-		if (enabled) {
-			this.registerKey();
-		} else {
-			game.playerListStatus.removeKey(this.keyName)
-		}
-	}
+    back() {
+        if (this.isAfk) {
+            this.afk();
+        }
+    }
 
-	changeIndicator(setting) {
-		game.playerListStatus.changeValue(this.keyName, setting)
-	}
+    changeShowIndicator(enabled) {
+        if (enabled) {
+            game.playerListStatus.on(AfkStatus.keyName);
+        } else {
+            game.playerListStatus.off(AfkStatus.keyName)
+        }
+    }
 
-	changePosition(setting) {
-		game.playerListStatus.changePosition(this.keyName, this.parsePositionConfig(setting))
-	}
+    changePosition(setting) {
+        game.playerListStatus.changePosition(AfkStatus.keyName, AfkStatus.parsePositionConfig(setting))
+    }
 
-	registerKey() {
-		let position = this.parsePositionConfig(game.settings.get(this.moduleName, "afkIconPosition"));
-		let options = {
-			resetFlags: false,
-			override: false,
-			position: position
-		}
-		return game.playerListStatus.registerKey(this.keyName, "💤", options);
-	}
-
-	parsePositionConfig(setting) {
-		switch (setting) {
-			case "1":
-				return game.playerListStatus.positions.beforeOnlineStatus;
-			case "2":
-				return game.playerListStatus.positions.beforePlayername;
-			case "3":
-				return game.playerListStatus.positions.afterPlayername;
-		}
-	}
+    /**
+     * parse the position to show
+     * @param {string} setting the setting from Foundry
+     * @returns {symbol} the position
+     */
+    static parsePositionConfig(setting) {
+        switch (setting) {
+            case "1":
+                return PLAYERLIST.POSITIONS.BEFORE_ONLINE_STATUS;
+            case "2":
+                return PLAYERLIST.POSITIONS.BEFORE_PLAYERNAME;
+            case "3":
+                return PLAYERLIST.POSITIONS.AFTER_PLAYERNAME;
+        }
+    }
 }
