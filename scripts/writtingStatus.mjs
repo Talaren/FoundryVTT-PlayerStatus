@@ -1,71 +1,48 @@
 export default class WrittingStatus {
 
-	constructor() {
-		this.moduleName = "playerStatus";
-		this.keyName = "typping";
-		this.keytimer = undefined;
-		let position = this.parsePositionConfig(game.settings.get(this.moduleName, "typingIconPosition"));
-		let options = {
-			resetFlags: true,
-			override: false,
-			position: position
-		}
-		let typingIcon = game.settings.get(this.moduleName, "typingIcon");
-		let success = game.playerListStatus.registerKey(this.keyName, typingIcon, options);
-		if (success) {
-			Hooks.on("chatMessage", (_chatlog, _messageText, _chatData) => {
-				this.stop();
-			});
-			let chat = document.getElementById('chat-message');
-			chat.addEventListener("keydown", function() {
-				game.writtingStatus.typing();
-			});
-		}
-	}
+    static moduleName = "playerStatus";
+    static keyName = "typing";
 
-	typing() {
-		if (typeof this.keytimer !== 'undefined') {
-			clearTimeout(this.keytimer);
-		} else {
-			game.playerListStatus.on(this.keyName);
-		}
-		this.keytimer = setTimeout(() => {
-			game.writtingStatus.stop();
-		}, (game.settings.get("playerStatus", "timeOutSec") * 1000));
-	}
+    constructor() {
+        this.keytimer = undefined;
+    }
 
-	stop() {
-		if (typeof this.keytimer !== "undefined") {
-			clearTimeout(this.keytimer);
-		}
-		game.playerListStatus.off(this.keyName);
-		this.keytimer = undefined;
-	}
+    typing() {
+        if (typeof this.keytimer !== 'undefined') {
+            clearTimeout(this.keytimer);
+        } else {
+            game.playerListStatus.on(WrittingStatus.keyName);
+        }
+        this.keytimer = setTimeout(() => {
+            this.stop();
+        }, (game.settings.get("playerStatus", "timeOutSec") * 1000));
+    }
 
-	changePosition(setting) {
-		game.playerListStatus.changePosition(this.keyName, this.parsePositionConfig(setting))
-	}
+    stop() {
+        if (typeof this.keytimer !== "undefined") {
+            clearTimeout(this.keytimer);
+        }
+        game.playerListStatus.off(WrittingStatus.keyName);
+        this.keytimer = undefined;
+    }
 
-	changeShowIndicator(enabled) {
-		if (enabled) {
-			this.registerKey();
-		} else {
-			game.playerListStatus.removeKey(this.keyName)
-		}
-	}
+    changePosition(setting) {
+        game.playerListStatus.changePosition(WrittingStatus.keyName, WrittingStatus.parsePositionConfig(setting))
+    }
 
-	changeIndicator(setting) {
-		game.playerListStatus.changeValue(this.keyName, setting)
-	}
-
-	parsePositionConfig(setting) {
-		switch (setting) {
-			case "1":
-				return game.playerListStatus.positions.beforeOnlineStatus;
-			case "2":
-				return game.playerListStatus.positions.beforePlayername;
-			case "3":
-				return game.playerListStatus.positions.afterPlayername;
-		}
-	}
+    /**
+     * Parse the position config to a position
+     * @param {string} setting The position config
+     * @returns {symbol} The position
+     */
+    static parsePositionConfig(setting) {
+        switch (setting) {
+            case "1":
+                return PLAYERLIST.POSITIONS.BEFORE_ONLINE_STATUS;
+            case "2":
+                return PLAYERLIST.POSITIONS.BEFORE_PLAYERNAME;
+            case "3":
+                return PLAYERLIST.POSITIONS.AFTER_PLAYERNAME;
+        }
+    }
 }

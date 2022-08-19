@@ -9,7 +9,7 @@
 			"iconPosition": "Where should the AFK symbol be displayed?"
 		},
 		"typing": {
-			"timeOutSec": "Reset typing after x seconds after last charakter",
+			"timeOutSec": "Reset typing after x seconds after last character",
 			"icon": "Select typing icon",
 			"iconPosition": "Where should the tap icon be displayed?"
 		},
