@@ -115,13 +115,10 @@ Hooks.once('playerListStatusInit', function (register) {
 });
 
 Hooks.once('playerListStatusReady', function (playerListStatus) {
-    Game.prototype.afkStatus = new AfkStatus();
-    Game.prototype.writtingStatus = new WrittingStatus();
-
     if (playerListStatus.isRegistered("afk")) {
-        let chat = document.getElementById('chat-message');
-        chat.addEventListener("keydown", function () {
-            game.writtingStatus.typing();
-        });
+        Game.prototype.afkStatus = new AfkStatus();
+    }
+    if (playerListStatus.isRegistered("writting")) {
+        Game.prototype.writtingStatus = new WrittingStatus();
     }
 });
