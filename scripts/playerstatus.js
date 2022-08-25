@@ -115,10 +115,10 @@ Hooks.once('playerListStatusInit', function (register) {
 });
 
 Hooks.once('playerListStatusReady', function (playerListStatus) {
-    if (playerListStatus.isRegistered("afk")) {
+    if (playerListStatus.isRegistered(AfkStatus.keyName)) {
         Game.prototype.afkStatus = new AfkStatus();
     }
-    if (playerListStatus.isRegistered("writting")) {
+    if (playerListStatus.isRegistered(WrittingStatus.keyName)) {
         Game.prototype.writtingStatus = new WrittingStatus();
     }
 });
