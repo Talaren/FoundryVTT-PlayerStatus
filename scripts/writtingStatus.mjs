@@ -5,6 +5,10 @@ export default class WrittingStatus {
 
     constructor() {
         this.keytimer = undefined;
+        let chat = document.getElementById('chat-message');
+        chat.addEventListener("keydown", function () {
+            this.typing();
+        }.bind(this));
     }
 
     typing() {
@@ -13,9 +17,9 @@ export default class WrittingStatus {
         } else {
             game.playerListStatus.on(WrittingStatus.keyName);
         }
-        this.keytimer = setTimeout(() => {
+        this.keytimer = setTimeout(function() {
             this.stop();
-        }, (game.settings.get("playerStatus", "timeOutSec") * 1000));
+        }.bind(this), (game.settings.get("playerStatus", "timeOutSec") * 1000));
     }
 
     stop() {
