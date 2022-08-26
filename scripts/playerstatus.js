@@ -108,9 +108,7 @@ Hooks.once('playerListStatusInit', function (register) {
             position: position
         }
         let typingIcon = game.settings.get(WrittingStatus.moduleName, "typingIcon");
-        if (register.registerKey(WrittingStatus.keyName, typingIcon, options)) {
-            Hooks.on("chatMessage", (_chatlog, _messageText, _chatData) => game.writtingStatus.stop());
-        }
+        register.registerKey(WrittingStatus.keyName, typingIcon, options);
     }
 });
 

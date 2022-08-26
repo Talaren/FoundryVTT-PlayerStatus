@@ -5,20 +5,20 @@ export default class AfkStatus {
 
     constructor() {
         this.isAfk = game.playerListStatus.status(AfkStatus.keyName);
-        Hooks.on("chatMessage", (_chatlog, messageText, _chatData) => {
+        Hooks.on("chatMessage", function (_chatlog, messageText, _chatData) {
             if (messageText.startsWith("/afk") || messageText.startsWith("brb")) {
                 let reason = messageText.indexOf(" ") > 0 ? messageText.substring(messageText.indexOf(" ")) : undefined;
-                window.game.afkStatus.afk(reason);
+                this.afk(reason);
                 return false;
             }
             if (messageText.startsWith("/back")) {
-                window.game.afkStatus.back();
+                this.back();
                 return false;
             }
             if (game.settings.get("playerStatus", "showChatActivityRemoveAFK")) {
-                window.game.afkStatus.back();
+                this.back();
             }
-        });
+        }.bind(this));
     }
 
     afk(reason) {
