@@ -18,14 +18,14 @@
 				"manifest": "https://github.com/Talaren/FoundryVTT-PlayerListStatus/releases/latest/download/module.json",
 				"compatibility": {
 					"minimum": "2.1.0",
-					"verified": "2.1.1"
+					"verified": "2.1.2"
 				}
 			}
 		]
 	},
 	"compatibility": {
 		"minimum": "9",
-		"verified": "10.279",
+		"verified": "10.286",
 		"maximum": "10"
 	},
 	"languages": [
@@ -44,17 +44,17 @@
 		"scripts/playerstatus.js"
 	],
 	"manifest": "https://github.com/Talaren/FoundryVTT-PlayerStatus/releases/latest/download/module.json",
-	"download": "https://github.com/Talaren/FoundryVTT-PlayerStatus/releases/download/2.0.6/module.zip",
+	"download": "https://github.com/Talaren/FoundryVTT-PlayerStatus/releases/download/2.1.5/module.zip",
 	"name": "playerStatus",
 	"minimumCoreVersion": "9",
-	"compatibleCoreVersion": "9.269",
+	"compatibleCoreVersion": "9.280",
 	"dependencies": [
 		{
 			"name": "playerListStatus",
 			"id": "playerListStatus",
 			"type": "module",
 			"manifest": "https://github.com/Talaren/FoundryVTT-PlayerListStatus/releases/latest/download/module.json",
-			"version": "2.1.1"
+			"version": "2.1.2"
 		}
 	]
 }
