@@ -80,7 +80,27 @@ Hooks.once('playerListStatusInit', function (register) {
         onChange: setting => game.writtingStatus.changePosition(setting)
     });
 
-    {
+    // noinspection JSUnusedLocalSymbols
+    game.settings.register(AfkStatus.moduleName, "disableAfk", {
+        name: game.i18n.localize("PLAYER-STATUS.afk.disable"),
+        scope: 'world',
+        config: true,
+        type: Boolean,
+        default: false,
+        onChange: enabled => window.location.reload(true)
+    });
+
+    // noinspection JSUnusedLocalSymbols
+    game.settings.register(AfkStatus.moduleName, "disableTyping", {
+        name: game.i18n.localize("PLAYER-STATUS.typing.disable"),
+        scope: 'world',
+        config: true,
+        type: Boolean,
+        default: false,
+        onChange: enabled => window.location.reload(true)
+    });
+
+    if (!game.settings.get(AfkStatus.moduleName, "disableAfk")) {
         let position = AfkStatus.parsePositionConfig(game.settings.get(AfkStatus.moduleName, "afkIconPosition"));
         let options = {
             resetFlags: false, override: false, position: position
@@ -100,7 +120,7 @@ Hooks.once('playerListStatusInit', function (register) {
             });
         }
     }
-    {
+    if (!game.settings.get(AfkStatus.moduleName, "disableTyping")) {
         let position = WrittingStatus.parsePositionConfig(game.settings.get(WrittingStatus.moduleName, "typingIconPosition"));
         let options = {
             resetFlags: true,
