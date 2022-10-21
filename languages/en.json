@@ -1,22 +1,24 @@
 {
-	"PLAYER-STATUS": {
-		"afk": {
-			"showAfkIndicator": "Should an AFK emoji indicator be displayed in the Players list?",
-			"showChatNotification": "Should a message be posted to chat when a player is AFK?",
-			"showChatActivityRemoveAFK": "If you are AFK and post a chat message, should the AFK indicator go away?",
-			"back": "{name} is back",
-			"afk": "{name} is afk",
-			"iconPosition": "Where should the AFK symbol be displayed?"
-		},
-		"typing": {
-			"timeOutSec": "Reset typing after x seconds after last character",
-			"icon": "Select typing icon",
-			"iconPosition": "Where should the tap icon be displayed?"
-		},
-		"iconPosition": {
-			"beforeOnline": "Before the online status",
-			"afterOnline": "After the online status",
-			"afterName": "After the username"
-		}
-	}
+  "PLAYER-STATUS": {
+    "afk": {
+      "showAfkIndicator": "Should an AFK emoji indicator be displayed in the Players list?",
+      "showChatNotification": "Should a message be posted to chat when a player is AFK?",
+      "showChatActivityRemoveAFK": "If you are AFK and post a chat message, should the AFK indicator go away?",
+      "back": "{name} is back",
+      "afk": "{name} is afk",
+      "iconPosition": "Where should the AFK symbol be displayed?",
+      "disable": "Disable AFK function?"
+    },
+    "typing": {
+      "timeOutSec": "Reset typing after x seconds after last character",
+      "icon": "Select typing icon",
+      "iconPosition": "Where should the tap icon be displayed?",
+      "disable": "Disable typing function?"
+    },
+    "iconPosition": {
+      "beforeOnline": "Before the online status",
+      "afterOnline": "After the online status",
+      "afterName": "After the username"
+    }
+  }
 }
