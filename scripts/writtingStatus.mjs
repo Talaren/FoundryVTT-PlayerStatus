@@ -36,8 +36,6 @@ export default class WrittingStatus {
     }
 
     typing() {
-        console.log(this.keytimer);
-        console.log("typing");
         if (typeof this.keytimer !== 'undefined') {
             clearTimeout(this.keytimer);
         } else {
