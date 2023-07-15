@@ -135,6 +135,18 @@ Hooks.once('playerListStatusInit', function (register) {
 Hooks.once('playerListStatusReady', function (playerListStatus) {
     if (playerListStatus.isRegistered(AfkStatus.keyName)) {
         Game.prototype.afkStatus = new AfkStatus();
+        game.chatCommands?.register({
+            name: "/afk",
+            module: "PlayerStatus",
+            description: game.i18n.localize("PLAYER-STATUS.afk.afk_command"),
+            icon: "<i class='fas fa-comment-slash'></i>"
+        });
+        game.chatCommands?.register({
+            name: "/back",
+            module: "PlayerStatus",
+            description: game.i18n.localize("PLAYER-STATUS.afk.back_command"),
+            icon: "<i class='fas fa-comment-slash'></i>"
+        });
     }
     if (playerListStatus.isRegistered(WrittingStatus.keyName)) {
         Game.prototype.writtingStatus = new WrittingStatus();
