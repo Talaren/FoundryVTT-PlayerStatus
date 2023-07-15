@@ -73,7 +73,7 @@ export default class AfkStatus {
     /**
      * parse the position to show
      * @param {string} setting the setting from Foundry
-     * @returns {symbol} the position
+     * @returns {Object} the position
      */
     static parsePositionConfig(setting) {
         switch (setting) {
