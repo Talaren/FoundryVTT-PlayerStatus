@@ -1,0 +1,26 @@
+{
+  "PLAYER-STATUS": {
+    "afk": {
+      "showAfkIndicator": "Faut-il afficher un indicateur d'emoji AFK dans la liste des joueurs ?",
+      "showChatNotification": "Faut-il mettre un message dans le chat lorsqu'un joueur est AFK ?",
+      "showChatActivityRemoveAFK": "L'indicateur AFK doit-il disparaître lorsqu'on est AFK et qu'on poste un message de chat ?",
+      "back": "{name} est de retour",
+      "afk": "{name} est afk",
+      "iconPosition": "où voulez-vous que l'icône AFK soit affichée",
+      "disable": "Désactiver le système AFK ?",
+      "afk_command": "Away from Keyboard, tu veux aller AFK et le montrer à tout le monde. Un texte optionnel peut être ajouté, il sera alors inclus comme raison dans le message de chat",
+      "back_command": "Tu es de retour et tu veux le montrer à tout le monde"
+    },
+    "typing": {
+      "timeOutSec": "Réinitialiser la frappe après x secondes après le dernier caractère",
+      "icon": "Sélectionner l'icône de frappe",
+      "iconPosition": "Où doit s'afficher l'icône de frappe ?",
+      "disable": "Désactiver l'affichage de la frappe ?"
+    },
+    "iconPosition": {
+      "beforeOnline": "Avant le statut en ligne",
+      "afterOnline": "Après le statut en ligne",
+      "afterName": "Après le nom d'utilisateur"
+    }
+  }
+}

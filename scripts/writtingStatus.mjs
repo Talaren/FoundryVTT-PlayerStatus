@@ -8,13 +8,19 @@ export default class WrittingStatus {
      */
     constructor() {
         this.keytimer = undefined;
-        Hooks.on("chatMessage", function (_chatlog, _messageText, _chatData) {
-            this.stop()
-        }.bind(this));
         let chat = document.getElementById('chat-message');
         chat.addEventListener("keydown", function eventHandler(event) {
-            if(event.key !== "Enter"){
-                this.typing();
+            if (event.key !== "Enter") {
+                if (chat.value !== "") {
+                    this.typing();
+                }
+            } else {
+                // Add a slight delay to allow the text field to clear
+                setTimeout(() => {
+                    if (chat.value === "") {
+                        this.stop();
+                    }
+                }, 10);
             }
         }.bind(this));
     }
@@ -22,7 +28,7 @@ export default class WrittingStatus {
     /**
      * Parse the position config to a position
      * @param {string} setting The position config
-     * @returns {symbol} The position
+     * @returns {Object} The position
      */
     static parsePositionConfig(setting) {
         switch (setting) {

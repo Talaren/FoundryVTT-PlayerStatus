@@ -7,7 +7,9 @@
       "back": "{name} ist zurück",
       "afk": "{name} ist afk",
       "iconPosition": "Wo soll das AFK-Symbol angezeigt werden?",
-      "disable": "AFK System abschalten?"
+      "disable": "AFK System abschalten?",
+      "afk_command": "Away from Keyboard, du möchtest AFK gehen und es allen zeigen. Ein optionaler Text kann angefügt werden, dieser wird dann als Grund in der Chatmeldung mit aufgenommen.",
+      "back_command": "Du bist zurück und möchtest es allen zeigen"
     },
     "typing": {
       "timeOutSec": "Tippen zurücksetzen nach x Sekunden nach dem letzten Zeichen",
