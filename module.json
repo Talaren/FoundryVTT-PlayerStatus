@@ -9,7 +9,7 @@
 			"url": "https://github.com/Talaren"
 		}
 	],
-	"version": "",
+	"version": "3.0.1",
 	"relationships": {
 		"requires": [
 			{
@@ -17,15 +17,15 @@
 				"type": "module",
 				"manifest": "https://github.com/Talaren/FoundryVTT-PlayerListStatus/releases/latest/download/module.json",
 				"compatibility": {
-					"minimum": "2.1.0",
-					"verified": "3.0.0"
+					"minimum": "3.0.0",
+					"verified": "3.0.1"
 				}
 			}
 		]
 	},
 	"compatibility": {
 		"minimum": "9",
-		"verified": "11.302",
+		"verified": "11.307",
 		"maximum": "11"
 	},
 	"languages": [
@@ -38,6 +38,11 @@
 			"lang": "de",
 			"name": "Deutsch",
 			"path": "languages/de.json"
+		},
+		{
+			"lang": "fr",
+			"name": "Français",
+			"path": "languages/fr.json"
 		}
 	],
 	"esmodules": [
