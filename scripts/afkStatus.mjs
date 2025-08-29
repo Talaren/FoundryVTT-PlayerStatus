@@ -28,8 +28,14 @@ export default class AfkStatus {
                 let chatData = {
                     content: game.i18n.format("PLAYER-STATUS.afk.back", {
                         name: game.user.name
-                    }), type: CONST.CHAT_MESSAGE_TYPES.OOC
+                    })
                 };
+                const FC = foundry?.CONST;
+                if (FC?.CHAT_MESSAGE_STYLES?.OOC != null) {
+                    chatData.style = FC.CHAT_MESSAGE_STYLES.OOC;
+                } else {
+                    chatData.type = CONST.CHAT_MESSAGE_TYPES.OOC;
+                }
                 ChatMessage.create(chatData);
             }
             if (game.settings.get(AfkStatus.moduleName, "showAfkIndicator")) {
@@ -41,8 +47,14 @@ export default class AfkStatus {
                 let chatData = {
                     content: game.i18n.format("PLAYER-STATUS.afk.afk", {
                         name: game.user.name
-                    }) + (typeof reason !== 'undefined' ? "<br/>" + reason : ""), type: CONST.CHAT_MESSAGE_TYPES.OOC
+                    }) + (typeof reason !== 'undefined' ? "<br/>" + reason : "")
                 };
+                const FC = foundry?.CONST;
+                if (FC?.CHAT_MESSAGE_STYLES?.OOC != null) {
+                    chatData.style = FC.CHAT_MESSAGE_STYLES.OOC;
+                } else {
+                    chatData.type = CONST.CHAT_MESSAGE_TYPES.OOC;
+                }
                 ChatMessage.create(chatData);
             }
             if (game.settings.get(AfkStatus.moduleName, "showAfkIndicator")) {
