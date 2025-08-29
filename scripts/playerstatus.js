@@ -3,6 +3,21 @@
 import AfkStatus from "./afkStatus.mjs";
 import WrittingStatus from "./writtingStatus.mjs";
 
+// Suppress deprecated global access warnings by mapping Game -> foundry.Game in V13+
+Hooks.once('init', () => {
+    try {
+        if (globalThis?.foundry?.Game) {
+            Object.defineProperty(globalThis, 'Game', {
+                configurable: true,
+                enumerable: false,
+                get() { return foundry.Game; }
+            });
+        }
+    } catch (e) {
+        // ignore if property is non-configurable or environment differs
+    }
+});
+
 
 Hooks.once('playerListStatusInit', function (register) {
     game.settings.register(AfkStatus.moduleName, "showAfkIndicator", {
@@ -107,16 +122,28 @@ Hooks.once('playerListStatusInit', function (register) {
         }
 
         if (register.registerKey(AfkStatus.keyName, "💤", options)) {
-            Hooks.on("getSceneControlButtons", function (controls) {
-                let tileControls = controls.find(x => x.name === "token");
-                // noinspection JSUnusedGlobalSymbols
-                tileControls.tools.push({
-                    icon: "fas fa-comment-slash",
-                    name: "afk",
-                    title: "💤AFK",
-                    button: true,
-                    onClick: () => game.afkStatus.afk()
-                });
+            Hooks.on("getSceneControlButtons", controls => {
+                // Compare major version reliably (e.g., "12.331" -> 12)
+                const major = parseInt(String(game.version).split('.')[0], 10);
+                if (major >= 13) {
+                    controls.tokens.tools.afk = {
+                        name: "afk",
+                        title: "💤AFK",
+                        icon: "fas fa-comment-slash",
+                        button: true,
+                        onChange: () => game.afkStatus.afk()
+                    };
+                } else {
+                    let tileControls = controls.find(x => x.name === "token");
+                    // noinspection JSUnusedGlobalSymbols
+                    tileControls.tools.push({
+                        icon: "fas fa-comment-slash",
+                        name: "afk",
+                        title: "💤AFK",
+                        button: true,
+                        onClick: () => game.afkStatus.afk()
+                    });
+                }
             });
         }
     }
@@ -134,7 +161,8 @@ Hooks.once('playerListStatusInit', function (register) {
 
 Hooks.once('playerListStatusReady', function (playerListStatus) {
     if (playerListStatus.isRegistered(AfkStatus.keyName)) {
-        Game.prototype.afkStatus = new AfkStatus();
+        // Avoid deprecated global Game; attach to the game instance
+        game.afkStatus = new AfkStatus();
         game.chatCommands?.register({
             name: "/afk",
             module: "PlayerStatus",
@@ -149,6 +177,7 @@ Hooks.once('playerListStatusReady', function (playerListStatus) {
         });
     }
     if (playerListStatus.isRegistered(WrittingStatus.keyName)) {
-        Game.prototype.writtingStatus = new WrittingStatus();
+        // Avoid deprecated global Game; attach to the game instance
+        game.writtingStatus = new WrittingStatus();
     }
 });
