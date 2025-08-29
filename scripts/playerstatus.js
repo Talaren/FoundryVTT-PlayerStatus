@@ -123,7 +123,9 @@ Hooks.once('playerListStatusInit', function (register) {
 
         if (register.registerKey(AfkStatus.keyName, "💤", options)) {
             Hooks.on("getSceneControlButtons", controls => {
-                if (parseInt(game.version) >= 13) {
+                // Compare major version reliably (e.g., "12.331" -> 12)
+                const major = parseInt(String(game.version).split('.')[0], 10);
+                if (major >= 13) {
                     controls.tokens.tools.afk = {
                         name: "afk",
                         title: "💤AFK",

@@ -21,6 +21,16 @@ export default class AfkStatus {
         }.bind(this));
     }
 
+    static setOOCStyle(chatData) {
+        const FC = foundry?.CONST;
+        if (FC?.CHAT_MESSAGE_STYLES?.OOC != null) {
+            chatData.style = FC.CHAT_MESSAGE_STYLES.OOC;
+        } else {
+            chatData.type = CONST.CHAT_MESSAGE_TYPES.OOC;
+        }
+        return chatData;
+    }
+
     afk(reason) {
         if (this.isAfk) {
             if (game.settings.get(AfkStatus.moduleName, "showChatNotification")) {
@@ -30,12 +40,7 @@ export default class AfkStatus {
                         name: game.user.name
                     })
                 };
-                const FC = foundry?.CONST;
-                if (FC?.CHAT_MESSAGE_STYLES?.OOC != null) {
-                    chatData.style = FC.CHAT_MESSAGE_STYLES.OOC;
-                } else {
-                    chatData.type = CONST.CHAT_MESSAGE_TYPES.OOC;
-                }
+                AfkStatus.setOOCStyle(chatData);
                 ChatMessage.create(chatData);
             }
             if (game.settings.get(AfkStatus.moduleName, "showAfkIndicator")) {
@@ -49,12 +54,7 @@ export default class AfkStatus {
                         name: game.user.name
                     }) + (typeof reason !== 'undefined' ? "<br/>" + reason : "")
                 };
-                const FC = foundry?.CONST;
-                if (FC?.CHAT_MESSAGE_STYLES?.OOC != null) {
-                    chatData.style = FC.CHAT_MESSAGE_STYLES.OOC;
-                } else {
-                    chatData.type = CONST.CHAT_MESSAGE_TYPES.OOC;
-                }
+                AfkStatus.setOOCStyle(chatData);
                 ChatMessage.create(chatData);
             }
             if (game.settings.get(AfkStatus.moduleName, "showAfkIndicator")) {
